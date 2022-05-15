@@ -1,0 +1,40 @@
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+
+static class Student{
+String name;
+int mark;
+int count;
+public Student(String name, int mark, int count) {
+this.name = name;
+this.mark = mark;
+this.count = count;
+}
+}
+
+public static void findMaxAverage(String[][] input) {
+  Map<String,Student> map = new HashMap<>();
+  int max = Integer.MIN_VALUE;
+  
+  for(String[] r: input) {
+    if(map.containsKey(r[0])) {
+      Student t = map.get(r[0]);
+      map.put(r[0],new Student(r[0],t.mark+ Integer.parseInt(r[1]), t.count+1));
+      max = Math.max((t.mark+Integer.parseInt(r[1]))/(t.count+1), max);
+    }else {
+      map.put(r[0], new Student(r[0], Integer.parseInt(r[1]), 1));
+      max =Math.max(Integer.parseInt(r[1]), max);
+    }
+  }
+  System.out.println(max);
+}
+
+public static void main(String[] args) {
+  String input[][] = {{"Bob","87"}, {"Mike", "35"},{"Bob", "52"}, {"Jason","35"}, {"Mike", "55"}, {"Jessica", "99"}};
+  findMaxAverage(input);
+}
+}
+
